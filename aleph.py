@@ -58,6 +58,7 @@ def get_session_id(url):
 
 def convert_loan(loan):
     fields = loan.xpath('td')
+    due_date = fields[5].text or fields[5].xpath('noscript/text()')[0]
     return {'author': fields[2].text, 'title': fields[3].text,
             'due': datetime.strptime(
-                fields[5].text + fields[6].text, DUE_FORMAT)}
+                due_date + fields[6].text, DUE_FORMAT)}
